@@ -1,8 +1,14 @@
 # AntiAfkKick
 An application, Dalamud and ACT plugin for preventing being auto-kicked from FFXIV due to inactivity.
 
+Everything below is beta version: may not work. Will do no harm though either way.
+
 ## Dalamud plugin
-Recommended if you are using FFXIV Quick Launcher. Coming soon. 
+Recommended if you are using FFXIV Quick Launcher. 
+
+Add my custom repo URL: `https://raw.githubusercontent.com/Eternita-S/MyDalamudPlugins/main/pluginmaster.json` then install plugin from plugins list.
+
+Detailed instruction available here: https://github.com/Eternita-S/MyDalamudPlugins
 
 ## ACT plugin
 Download it here: https://github.com/Eternita-S/AntiAfkKick/releases/download/1.0.0.0/AntiAfkKick-ACT.dll
@@ -15,4 +21,5 @@ Just download it and run it. No configuration needed. Only supports one instance
 
 Download link: https://github.com/Eternita-S/AntiAfkKick/releases/download/1.0.0.0/AntiAfkKick.exe
 
-I didn't tested it yet btw, so beta version. Will do no harm, just might not work (let me know about it)
+## How it works?
+It just sends left control key to the game every now and then. Seems like for now it's enough to make game think user is still active. It won't send keypress if you are actually playing.
