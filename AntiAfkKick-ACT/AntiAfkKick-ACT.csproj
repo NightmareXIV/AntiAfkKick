@@ -1,20 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\DalamudPackager.1.2.1\build\DalamudPackager.props" Condition="Exists('..\packages\DalamudPackager.1.2.1\build\DalamudPackager.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EFF438EF-C467-4142-8E8B-D65D113CAEA3}</ProjectGuid>
+    <ProjectGuid>{322EE0BF-A029-4495-9482-EC5016529D2A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AntiAfkKick_Dalamud</RootNamespace>
-    <AssemblyName>AntiAfkKick-Dalamud</AssemblyName>
+    <RootNamespace>AntiAfkKick_ACT</RootNamespace>
+    <AssemblyName>AntiAfkKick-ACT</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,29 +36,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <None Include="AntiAfkKick-Dalamud.json" />
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiAfkKick.cs" />
     <Compile Include="Native.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Dalamud">
-      <HintPath>..\..\dev\Dalamud.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Advanced Combat Tracker">
+      <HintPath>..\..\act\Advanced Combat Tracker.exe</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\DalamudPackager.1.2.1\build\DalamudPackager.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\DalamudPackager.1.2.1\build\DalamudPackager.props'))" />
-    <Error Condition="!Exists('..\packages\DalamudPackager.1.2.1\build\DalamudPackager.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\DalamudPackager.1.2.1\build\DalamudPackager.targets'))" />
-  </Target>
-  <Import Project="..\packages\DalamudPackager.1.2.1\build\DalamudPackager.targets" Condition="Exists('..\packages\DalamudPackager.1.2.1\build\DalamudPackager.targets')" />
 </Project>

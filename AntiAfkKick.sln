@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiAfkKick-Standalone", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiAfkKick-Dalamud", "AntiAfkKick-Dalamud\AntiAfkKick-Dalamud.csproj", "{EFF438EF-C467-4142-8E8B-D65D113CAEA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiAfkKick-ACT", "AntiAfkKick-ACT\AntiAfkKick-ACT.csproj", "{322EE0BF-A029-4495-9482-EC5016529D2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EFF438EF-C467-4142-8E8B-D65D113CAEA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFF438EF-C467-4142-8E8B-D65D113CAEA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFF438EF-C467-4142-8E8B-D65D113CAEA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322EE0BF-A029-4495-9482-EC5016529D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322EE0BF-A029-4495-9482-EC5016529D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322EE0BF-A029-4495-9482-EC5016529D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322EE0BF-A029-4495-9482-EC5016529D2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
