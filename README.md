@@ -1,8 +1,6 @@
 # AntiAfkKick
 An application, Dalamud and ACT plugin for preventing being auto-kicked from FFXIV due to inactivity.
 
-Everything below is beta version: may not work. Will do no harm though either way.
-
 ## Dalamud plugin
 Recommended if you are using FFXIV Quick Launcher. 
 
