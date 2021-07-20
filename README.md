@@ -4,7 +4,11 @@ An application, Dalamud and ACT plugin for preventing being auto-kicked from FFX
 ## Dalamud plugin
 Recommended if you are using FFXIV Quick Launcher. Using AntiAfkKick as Dalamud plugin provides advantages of automatically launching together with game and automatic updates. ACT plugin and standalone version must be updated manually if ever needed.
 
-Add my custom repo URL: `https://raw.githubusercontent.com/Eternita-S/MyDalamudPlugins/main/pluginmaster.json` then install plugin from plugins list.
+Add my custom repo URL: 
+
+`https://raw.githubusercontent.com/Eternita-S/MyDalamudPlugins/main/pluginmaster.json` 
+
+then install plugin from plugins list.
 
 Detailed instruction available here: https://github.com/Eternita-S/MyDalamudPlugins
 
