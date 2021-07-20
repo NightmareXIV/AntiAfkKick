@@ -15,6 +15,7 @@ namespace AntiAfkKick
     {
         int NextKeyPress = 0;
         volatile bool running = true;
+        Process proc = null;
 
         public void DeInitPlugin()
         {
@@ -27,26 +28,33 @@ namespace AntiAfkKick
             {
                 while (running)
                 {
-                    var proc = Process.GetProcessesByName("ffxiv_dx11");
-                    if (proc.Length == 0)
+                    Thread.Sleep(1000);
+                    try
                     {
-                        proc = Process.GetProcessesByName("ffxiv");
-                    }
-                    if (proc.Length == 0)
-                    {
-                        pluginStatusText.Text = Environment.TickCount + ": Could not find FFXIV window";
-                    }
-                    else
-                    {
-                        if (Environment.TickCount > NextKeyPress &&
-                            (Native.GetForegroundWindow() != proc[0].MainWindowHandle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000))
+                        if (proc == null || proc.HasExited)
                         {
-                            pluginStatusText.Text = Environment.TickCount + ": Sending keypress to FFXIV window";
-                            Native.Keypress.SendKeycode(proc[0].MainWindowHandle, Native.Keypress.LControlKey);
+                            var p = Process.GetProcessesByName("ffxiv_dx11");
+                            if (p.Length == 0)
+                            {
+                                p = Process.GetProcessesByName("ffxiv");
+                            }
+                            if (p.Length == 0)
+                            {
+                                pluginStatusText.Text = ("Could not find FFXIV window");
+                                continue;
+                            }
+                            proc = p[0];
+                            pluginStatusText.Text = ("New process found, pid = " + proc.Id);
+                        }
+                        if (Environment.TickCount > NextKeyPress &&
+                            (Native.GetForegroundWindow() != proc.MainWindowHandle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000))
+                        {
+                            pluginStatusText.Text = (DateTimeOffset.Now + ": Sending keypress to FFXIV window");
+                            Native.Keypress.SendKeycode(proc.MainWindowHandle, Native.Keypress.LControlKey);
                             NextKeyPress = Environment.TickCount + new Random().Next(2 * 60 * 1000, 4 * 60 * 1000);
                         }
                     }
-                    Thread.Sleep(1000);
+                    catch (Exception) { }
                 }
             }).Start();
         }

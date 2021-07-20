@@ -15,6 +15,7 @@ namespace AntiAfkKick
         static int NextKeyPress = 0;
         static NotifyIcon n = null;
         private static string appGuid = "92f42221-51a5-4753-9e91-84aeea157d17";
+        static Process proc;
 
         static void Main(string[] args)
         {
@@ -29,33 +30,41 @@ namespace AntiAfkKick
                 {
                     Icon = SystemIcons.Application,
                     Visible = true,
-                    ContextMenu = new ContextMenu(new MenuItem[] { new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); }) })
+                    ContextMenu = new ContextMenu(new MenuItem[] { new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); }) }),
+                    Text = "AntiAfkKick"
                 };
                 new Thread((ThreadStart)delegate
                 {
-                   while (true)
-                   {
-                       var proc = Process.GetProcessesByName("ffxiv_dx11");
-                       if (proc.Length == 0)
-                       {
-                           proc = Process.GetProcessesByName("ffxiv");
-                       }
-                       if (proc.Length == 0)
-                       {
-                           Console.WriteLine("Could not find FFXIV window");
-                       }
-                       else
-                       {
-                           if (Environment.TickCount > NextKeyPress &&
-                               (Native.GetForegroundWindow() != proc[0].MainWindowHandle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000))
-                           {
-                               Console.WriteLine("Sending keypress to FFXIV window");
-                               Native.Keypress.SendKeycode(proc[0].MainWindowHandle, Native.Keypress.LControlKey);
-                               NextKeyPress = Environment.TickCount + new Random().Next(2 * 60 * 1000, 4 * 60 * 1000);
-                           }
-                       }
-                       Thread.Sleep(1000);
-                   }
+                    while (true)
+                    {
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            if (proc == null || proc.HasExited)
+                            {
+                                var p = Process.GetProcessesByName("ffxiv_dx11");
+                                if (p.Length == 0)
+                                {
+                                    p = Process.GetProcessesByName("ffxiv");
+                                }
+                                if (p.Length == 0)
+                                {
+                                    Console.WriteLine("Could not find FFXIV window");
+                                    continue;
+                                }
+                                proc = p[0];
+                                Console.WriteLine("New process found, pid = " + proc.Id);
+                            }
+                            if (Environment.TickCount > NextKeyPress &&
+                                (Native.GetForegroundWindow() != proc.MainWindowHandle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000))
+                            {
+                                Console.WriteLine(DateTimeOffset.Now + ": Sending keypress to FFXIV window");
+                                Native.Keypress.SendKeycode(proc.MainWindowHandle, Native.Keypress.LControlKey);
+                                NextKeyPress = Environment.TickCount + new Random().Next(2 * 60 * 1000, 4 * 60 * 1000);
+                            }
+                        }
+                        catch (Exception) { }
+                    }
                }).Start();
                 Application.Run();
             }
