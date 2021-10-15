@@ -60,11 +60,11 @@ namespace AntiAfkKick
             public const int LControlKey = 162;
             public const int Space = 32;
 
-            const uint WM_KEYUP = 0x101;
-            const uint WM_KEYDOWN = 0x100;
+            public const uint WM_KEYUP = 0x101;
+            public const uint WM_KEYDOWN = 0x100;
 
             [DllImport("user32.dll")]
-            private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
             public static void SendKeycode(IntPtr hwnd, int keycode)
             {
