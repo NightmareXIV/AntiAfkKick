@@ -18,7 +18,7 @@ namespace AntiAfkKick_Dalamud
     {
         public string Name => "AntiAfkKick-Dalamud";
         internal volatile bool running = true;
-        int NextKeyPress = 0;
+        //long NextKeyPress = 0;
         float* AfkTimer;
 
         public void Dispose()
@@ -30,36 +30,49 @@ namespace AntiAfkKick_Dalamud
         {
             pluginInterface.Create<Svc>();
             AfkTimer = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 0x276D0);
-            
+            var mwh = Process.GetCurrentProcess().MainWindowHandle;
             new Thread((ThreadStart)delegate
             {
-                var proc = Process.GetCurrentProcess();
                 while (running)
                 {
-                    var fgWH = Native.GetForegroundWindow();
-                    //PluginLog.Information($"[Debug] fgWH:{fgWH:X16}; proc.MWH:{proc.MainWindowHandle:X16}; GCP.MWH:{Process.GetCurrentProcess().MainWindowHandle:X16}");
-                    if (Environment.TickCount > NextKeyPress &&
-                        (fgWH != proc.MainWindowHandle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000))
+                    try
                     {
-                        PluginLog.Information("Afk timer before: " + *AfkTimer);
-                        PluginLog.Information($"Sending anti-afk keypress: {proc.MainWindowHandle:X16}");
-                        new TickScheduler(delegate
+                        //var fgWH = Native.GetForegroundWindow();
+                        //var newHandle = Process.GetCurrentProcess().MainWindowHandle;
+                        //if (newHandle != IntPtr.Zero) mwh = newHandle;
+                        //PluginLog.Debug($"[Debug] fgWH:{fgWH:X16}; proc.MWH:{mwh:X16}; GCP.MWH:{Process.GetCurrentProcess().MainWindowHandle:X16}");
+                        //PluginLog.Debug($"[Debug] TickCount64:{Environment.TickCount64}/NextKeyPress:{NextKeyPress}");
+                        PluginLog.Debug("Afk timer: " + *AfkTimer);
+                        if (*AfkTimer > 2f*60f 
+                            //Environment.TickCount64 > NextKeyPress &&
+                            //(fgWH != mwh || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000)
+                            )
                         {
-                            SendMessage(proc.MainWindowHandle, WM_KEYDOWN, (IntPtr)LControlKey, (IntPtr)0);
+                            PluginLog.Debug("Afk timer before: " + *AfkTimer);
+                            PluginLog.Debug($"Sending anti-afk keypress: {mwh:X16}");
                             new TickScheduler(delegate
                             {
-                                SendMessage(proc.MainWindowHandle, WM_KEYUP, (IntPtr)LControlKey, (IntPtr)0);
-                                PluginLog.Information("Afk timer after: " + *AfkTimer);
-                            }, Svc.Framework, 200);
-                        }, Svc.Framework, 0);
-                        NextKeyPress = Environment.TickCount + new Random().Next(1 * 60 * 1000, 2 * 60 * 1000);
+                                SendMessage(mwh, WM_KEYDOWN, (IntPtr)LControlKey, (IntPtr)0);
+                                new TickScheduler(delegate
+                                {
+                                    SendMessage(mwh, WM_KEYUP, (IntPtr)LControlKey, (IntPtr)0);
+                                    PluginLog.Debug("Afk timer after: " + *AfkTimer);
+                                }, Svc.Framework, 200);
+                            }, Svc.Framework, 0);
+                            //NextKeyPress = Environment.TickCount64 + new Random().Next(1 * 60 * 1000, 2 * 60 * 1000);
+                        }
+                        //if (fgWH == mwh)
+                        //{
+                        //    NextKeyPress = Environment.TickCount64 + 2 * 60 * 1000;
+                        //}
+                        Thread.Sleep(10000);
                     }
-                    if(fgWH == proc.MainWindowHandle)
+                    catch(Exception e)
                     {
-                        NextKeyPress = Environment.TickCount + 2*60*1000;
+                        PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
                     }
-                    Thread.Sleep(10000);
                 }
+                PluginLog.Debug("Thread has stopped");
             }).Start();
         }
     }
@@ -67,7 +80,7 @@ namespace AntiAfkKick_Dalamud
 /*var convertedCode = (byte)Svc.KeyState.GetType()
         .GetMethod("ConvertVirtualKey", BindingFlags.NonPublic | BindingFlags.Instance)
         .Invoke(Svc.KeyState, new object[] { (int)VirtualKey.LCONTROL });
-    PluginLog.Information("Task run: " + convertedCode);
+    PluginLog.Debug("Task run: " + convertedCode);
     if (convertedCode != 0)
     {
         var bufferBase = (IntPtr)Svc.KeyState.GetType().GetField("bufferBase", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Svc.KeyState);
