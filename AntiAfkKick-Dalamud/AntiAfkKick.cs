@@ -20,6 +20,7 @@ namespace AntiAfkKick_Dalamud
         internal volatile bool running = true;
         //long NextKeyPress = 0;
         float* AfkTimer;
+        IntPtr mwh;
 
         public void Dispose()
         {
@@ -28,9 +29,9 @@ namespace AntiAfkKick_Dalamud
 
         public AntiAfkKick(DalamudPluginInterface pluginInterface)
         {
+            mwh = Process.GetCurrentProcess().MainWindowHandle;
             pluginInterface.Create<Svc>();
             AfkTimer = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 0x276D0);
-            var mwh = Process.GetCurrentProcess().MainWindowHandle;
             new Thread((ThreadStart)delegate
             {
                 while (running)
@@ -38,9 +39,9 @@ namespace AntiAfkKick_Dalamud
                     try
                     {
                         //var fgWH = Native.GetForegroundWindow();
-                        //var newHandle = Process.GetCurrentProcess().MainWindowHandle;
-                        //if (newHandle != IntPtr.Zero) mwh = newHandle;
-                        //PluginLog.Debug($"[Debug] fgWH:{fgWH:X16}; proc.MWH:{mwh:X16}; GCP.MWH:{Process.GetCurrentProcess().MainWindowHandle:X16}");
+                        var newHandle = Process.GetCurrentProcess().MainWindowHandle;
+                        if (newHandle != IntPtr.Zero) mwh = newHandle;
+                        PluginLog.Debug($"[Debug] proc.MWH:{mwh:X16}; GCP.MWH:{Process.GetCurrentProcess().MainWindowHandle:X16}");
                         //PluginLog.Debug($"[Debug] TickCount64:{Environment.TickCount64}/NextKeyPress:{NextKeyPress}");
                         PluginLog.Debug("Afk timer: " + *AfkTimer);
                         if (*AfkTimer > 2f*60f 
