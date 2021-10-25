@@ -20,6 +20,8 @@ namespace AntiAfkKick_Dalamud
         internal volatile bool running = true;
         //long NextKeyPress = 0;
         float* AfkTimer;
+        float* AfkTimer2;
+        float* AfkTimer3;
         IntPtr mwh;
 
         public void Dispose()
@@ -31,7 +33,9 @@ namespace AntiAfkKick_Dalamud
         {
             mwh = Process.GetCurrentProcess().MainWindowHandle;
             pluginInterface.Create<Svc>();
-            AfkTimer = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 0x276D0);
+            AfkTimer = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 161480);
+            AfkTimer2 = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 161508);
+            AfkTimer3 = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 161488);
             new Thread((ThreadStart)delegate
             {
                 while (running)
@@ -43,13 +47,13 @@ namespace AntiAfkKick_Dalamud
                         if (newHandle != IntPtr.Zero) mwh = newHandle;
                         PluginLog.Debug($"[Debug] proc.MWH:{mwh:X16}; GCP.MWH:{Process.GetCurrentProcess().MainWindowHandle:X16}");
                         //PluginLog.Debug($"[Debug] TickCount64:{Environment.TickCount64}/NextKeyPress:{NextKeyPress}");
-                        PluginLog.Debug("Afk timer: " + *AfkTimer);
-                        if (*AfkTimer > 2f*60f 
+                        PluginLog.Debug($"Afk timers: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
+                        if (Max(*AfkTimer, *AfkTimer2, *AfkTimer3) > 2f*60f 
                             //Environment.TickCount64 > NextKeyPress &&
                             //(fgWH != mwh || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000)
                             )
                         {
-                            PluginLog.Debug("Afk timer before: " + *AfkTimer);
+                            PluginLog.Debug($"Afk timer before: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
                             PluginLog.Debug($"Sending anti-afk keypress: {mwh:X16}");
                             new TickScheduler(delegate
                             {
@@ -57,7 +61,7 @@ namespace AntiAfkKick_Dalamud
                                 new TickScheduler(delegate
                                 {
                                     SendMessage(mwh, WM_KEYUP, (IntPtr)LControlKey, (IntPtr)0);
-                                    PluginLog.Debug("Afk timer after: " + *AfkTimer);
+                                    PluginLog.Debug($"Afk timer after: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
                                 }, Svc.Framework, 200);
                             }, Svc.Framework, 0);
                             //NextKeyPress = Environment.TickCount64 + new Random().Next(1 * 60 * 1000, 2 * 60 * 1000);
@@ -75,6 +79,10 @@ namespace AntiAfkKick_Dalamud
                 }
                 PluginLog.Debug("Thread has stopped");
             }).Start();
+        }
+        public static float Max(params float[] values)
+        {
+            return values.Max();
         }
     }
 }
