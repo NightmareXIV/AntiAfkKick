@@ -35,7 +35,7 @@ namespace AntiAfkKick
                 lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
                 GetLastInputInfo(ref lastInPut);
 
-                return ((uint)Native.GetTickCount64() - lastInPut.dwTime);
+                return ((uint)Environment.TickCount - lastInPut.dwTime);
             }
             /// <summary>
             /// Get the Last input time in milliseconds
