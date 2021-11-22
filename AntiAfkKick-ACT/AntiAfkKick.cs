@@ -15,7 +15,6 @@ namespace AntiAfkKick
     {
         int NextKeyPress = 0;
         volatile bool running = true;
-        Process proc = null;
 
         public void DeInitPlugin()
         {
@@ -26,10 +25,11 @@ namespace AntiAfkKick
             ((TabControl)pluginScreenSpace.Parent).TabPages.Remove(pluginScreenSpace);
             new Thread((ThreadStart)delegate
             {
+                pluginStatusText.Text = "Thread started";
                 while (running)
                 {
                     Thread.Sleep(10000);
-                    Console.WriteLine("Cycle begins");
+                    //Console.WriteLine("Cycle begins");
                     try
                     {
                         if (Environment.TickCount > NextKeyPress)
@@ -52,6 +52,7 @@ namespace AntiAfkKick
                     }
                     catch (Exception) { }
                 }
+                pluginStatusText.Text = "Thread stopped";
             }).Start();
         }
     }

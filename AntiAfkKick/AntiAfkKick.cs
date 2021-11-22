@@ -25,9 +25,18 @@ namespace AntiAfkKick
                     MessageBox.Show("Application already running");
                     return;
                 }
+                Icon icon;
+                try
+                {
+                    icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+                }
+                catch (Exception)
+                {
+                    icon = SystemIcons.Application;
+                }
                 n = new NotifyIcon
                 {
-                    Icon = SystemIcons.Application,
+                    Icon = icon,
                     Visible = true,
                     ContextMenu = new ContextMenu(new MenuItem[] {
                         new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); })
