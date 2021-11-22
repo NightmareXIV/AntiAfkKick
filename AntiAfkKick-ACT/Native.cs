@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AntiAfkKick
@@ -52,8 +53,30 @@ namespace AntiAfkKick
             }
         }
 
+
+        public static IEnumerable<IntPtr> GetGameWindows()
+        {
+            var hwnd = IntPtr.Zero;
+            while (true)
+            {
+                hwnd = FindWindowEx(IntPtr.Zero, hwnd, "FFXIVGAME", null);
+                if (hwnd == IntPtr.Zero) yield break;
+                yield return hwnd;
+            }
+        }
+
+        [DllImport("user32.dll")]
+        static extern IntPtr FindWindowEx(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, string lpszWindow);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        internal static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool AllocConsole();
 
         public class Keypress
         {
@@ -69,6 +92,7 @@ namespace AntiAfkKick
             public static void SendKeycode(IntPtr hwnd, int keycode)
             {
                 SendMessage(hwnd, WM_KEYDOWN, (IntPtr)keycode, (IntPtr)0);
+                Thread.Sleep(200);
                 SendMessage(hwnd, WM_KEYUP, (IntPtr)keycode, (IntPtr)0);
             }
         }

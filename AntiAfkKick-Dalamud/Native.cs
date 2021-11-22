@@ -52,6 +52,25 @@ namespace AntiAfkKick
             }
         }
 
+        public static bool TryFindGameWindow(out IntPtr hwnd)
+        {
+            hwnd = IntPtr.Zero;
+            while (true)
+            {
+                hwnd = FindWindowEx(IntPtr.Zero, hwnd, "FFXIVGAME", null);
+                if (hwnd == IntPtr.Zero) break;
+                GetWindowThreadProcessId(hwnd, out var pid);
+                if (pid == Process.GetCurrentProcess().Id) break;
+            }
+            return hwnd != IntPtr.Zero;
+        }
+
+        [DllImport("user32.dll")]
+        static extern IntPtr FindWindowEx(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, string lpszWindow);
+
+        [DllImport("user32.dll")]
+        static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow();
 
