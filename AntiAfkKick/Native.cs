@@ -35,7 +35,7 @@ namespace AntiAfkKick
                 lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
                 GetLastInputInfo(ref lastInPut);
 
-                return ((uint)Environment.TickCount - lastInPut.dwTime);
+                return ((uint)Native.GetTickCount64() - lastInPut.dwTime);
             }
             /// <summary>
             /// Get the Last input time in milliseconds
@@ -75,8 +75,7 @@ namespace AntiAfkKick
         internal static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool AllocConsole();
+        internal static extern ulong GetTickCount64();
 
         public class Keypress
         {

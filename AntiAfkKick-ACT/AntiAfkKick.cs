@@ -13,7 +13,7 @@ namespace AntiAfkKick
 {
     class AntiAfkKick: IActPluginV1
     {
-        int NextKeyPress = 0;
+        ulong NextKeyPress = 0;
         volatile bool running = true;
 
         public void DeInitPlugin()
@@ -32,7 +32,7 @@ namespace AntiAfkKick
                     //Console.WriteLine("Cycle begins");
                     try
                     {
-                        if (Environment.TickCount > NextKeyPress)
+                        if (Native.GetTickCount64() > NextKeyPress)
                         {
                             List<IntPtr> handles = new List<IntPtr>();
                             foreach (var handle in Native.GetGameWindows())
@@ -43,7 +43,7 @@ namespace AntiAfkKick
                                     handles.Add(handle);
                                 }
                             }
-                            NextKeyPress = Environment.TickCount + 2 * 60 * 1000;
+                            NextKeyPress = Native.GetTickCount64() + 2 * 60 * 1000;
                             if (handles.Count > 0)
                             {
                                 pluginStatusText.Text = (DateTimeOffset.Now.ToLocalTime() + ": Sending keypress to FFXIV windows " + String.Join(", ", handles));

@@ -12,7 +12,7 @@ namespace AntiAfkKick
 {
     class AntiAfkKick
     {
-        static int NextKeyPress = 0;
+        static ulong NextKeyPress = 0;
         static NotifyIcon n = null;
         private static string appGuid = "92f42221-51a5-4753-9e91-84aeea157d17";
 
@@ -39,6 +39,9 @@ namespace AntiAfkKick
                     Icon = icon,
                     Visible = true,
                     ContextMenu = new ContextMenu(new MenuItem[] {
+                        new MenuItem("AntiAfkKick standalone") { Enabled = false },
+                        new MenuItem("-"),
+                        new MenuItem("Report issue", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://github.com/Eternita-S/AntiAfkKick/issues" }); }),
                         new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); })
                     }),
                     Text = "AntiAfkKick"
@@ -48,19 +51,19 @@ namespace AntiAfkKick
                     while (true)
                     {
                         Thread.Sleep(10000);
-                        Console.WriteLine("Cycle begins");
+                        Console.WriteLine($"Cycle begins {Native.GetTickCount64()}");
                         try
                         {
-                            if (Environment.TickCount > NextKeyPress) {
+                            if (Native.GetTickCount64() > NextKeyPress) {
                                 foreach (var handle in Native.GetGameWindows())
                                 {
                                     if(Native.GetForegroundWindow() != handle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000)
                                     {
-                                        Console.WriteLine(Environment.TickCount + ": Sending keypress to FFXIV window " + handle.ToString());
+                                        Console.WriteLine(Native.GetTickCount64() + ": Sending keypress to FFXIV window " + handle.ToString());
                                         Native.Keypress.SendKeycode(handle, Native.Keypress.LControlKey);
                                     }
                                 }
-                                NextKeyPress = Environment.TickCount + 2 * 60 * 1000;
+                                //NextKeyPress = Native.GetTickCount64() + 2 * 60 * 1000;
                             }
                         }
                         catch (Exception) { }
