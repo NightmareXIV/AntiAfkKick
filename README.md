@@ -29,7 +29,7 @@ Download link: https://github.com/Eternita-S/AntiAfkKick/releases
 It just sends left control key to the game every now and then. Seems like for now it's enough to make game think user is still active. It won't send keypress if you are actually playing.
 
 ## But you can just open hud layout and you won't be kicked!
-Yeah but you need to open it while plugin is install and forget, will always work.
+~~Yeah but you need to open it while plugin is install and forget, will always work.~~ Not anymore
 
 ## Ethical side of the plugin and my personal opinion about auto-kick
 Some people question ethical side of this plugin and in general are against circumventing auto-afk kicking. Here is my personal opinion about it and why I think it's OK to do so:
