@@ -41,6 +41,20 @@ namespace AntiAfkKick
                     ContextMenu = new ContextMenu(new MenuItem[] {
                         new MenuItem("AntiAfkKick standalone") { Enabled = false },
                         new MenuItem("-"),
+                        new MenuItem("Invoke manually", delegate 
+                        {
+                            var str = new List<string>();
+                            str.Add("Keypress invoked manually. Results:");
+                            foreach (var handle in Native.GetGameWindows())
+                            {
+                                if(Native.GetForegroundWindow() != handle || Native.IdleTimeFinder.GetIdleTime() > 60 * 1000)
+                                {
+                                    str.Add(Native.GetTickCount64() + ": Sending keypress to FFXIV window " + handle.ToString());
+                                    Native.Keypress.SendKeycode(handle, Native.Keypress.LControlKey);
+                                }
+                            }
+                            MessageBox.Show(string.Join("\n", str), "AntiAfkKick standalone");
+                        }),
                         new MenuItem("Report issue", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://github.com/Eternita-S/AntiAfkKick/issues" }); }),
                         new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); })
                     }),

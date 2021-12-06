@@ -1,5 +1,6 @@
 ﻿using AntiAfkKick;
 using Dalamud.Game.ClientState.Keys;
+using Dalamud.Hooking;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 using System;
@@ -19,21 +20,39 @@ namespace AntiAfkKick_Dalamud
         public string Name => "AntiAfkKick-Dalamud";
         internal volatile bool running = true;
         //long NextKeyPress = 0;
+        IntPtr BaseAddress = IntPtr.Zero;
         float* AfkTimer;
         float* AfkTimer2;
         float* AfkTimer3;
 
+        delegate long UnkFunc(IntPtr a1, float a2);
+        Hook<UnkFunc> UnkFuncHook;
+
         public void Dispose()
         {
+            if (!UnkFuncHook.IsDisposed)
+            {
+                if (UnkFuncHook.IsEnabled)
+                {
+                    UnkFuncHook.Disable();
+                }
+                UnkFuncHook.Dispose();
+            }
             running = false;
         }
 
         public AntiAfkKick(DalamudPluginInterface pluginInterface)
         {
             pluginInterface.Create<Svc>();
-            AfkTimer = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 161480);
-            AfkTimer2 = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 161508);
-            AfkTimer3 = (float*)((IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule() + 161488);
+            UnkFuncHook = new(Svc.SigScanner.ScanText("48 8B C4 48 89 58 18 48 89 70 20 55 57 41 55"), UnkFunc_Dtr);
+            UnkFuncHook.Enable();
+        }
+
+        void BeginWork()
+        {
+            AfkTimer = (float*)(BaseAddress + 20);
+            AfkTimer2 = (float*)(BaseAddress + 24);
+            AfkTimer3 = (float*)(BaseAddress + 28);
             new Thread((ThreadStart)delegate
             {
                 while (running)
@@ -64,7 +83,7 @@ namespace AntiAfkKick_Dalamud
                         }
                         Thread.Sleep(10000);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
                     }
@@ -72,6 +91,27 @@ namespace AntiAfkKick_Dalamud
                 PluginLog.Debug("Thread has stopped");
             }).Start();
         }
+
+        long UnkFunc_Dtr(IntPtr a1, float a2)
+        {
+            BaseAddress = a1;
+            PluginLog.Information($"Obtained base address: {BaseAddress:X16}");
+            new TickScheduler(delegate 
+            {
+                if (!UnkFuncHook.IsDisposed)
+                {
+                    if (UnkFuncHook.IsEnabled)
+                    {
+                        UnkFuncHook.Disable();
+                    }
+                    UnkFuncHook.Dispose();
+                    PluginLog.Debug("Hook disposed");
+                }
+                BeginWork();
+            }, Svc.Framework);
+            return UnkFuncHook.Original(a1, a2);
+        }
+
         public static float Max(params float[] values)
         {
             return values.Max();
