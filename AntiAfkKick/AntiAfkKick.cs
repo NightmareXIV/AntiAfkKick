@@ -77,7 +77,7 @@ namespace AntiAfkKick
                                         Native.Keypress.SendKeycode(handle, Native.Keypress.LControlKey);
                                     }
                                 }
-                                //NextKeyPress = Native.GetTickCount64() + 2 * 60 * 1000;
+                                NextKeyPress = Native.GetTickCount64() + 2 * 60 * 1000;
                             }
                         }
                         catch (Exception) { }
