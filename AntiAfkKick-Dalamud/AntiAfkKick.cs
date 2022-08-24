@@ -46,6 +46,14 @@ namespace AntiAfkKick_Dalamud
             pluginInterface.Create<Svc>();
             UnkFuncHook = new(Svc.SigScanner.ScanText("48 8B C4 48 89 58 18 48 89 70 20 55 57 41 55"), UnkFunc_Dtr);
             UnkFuncHook.Enable();
+            try
+            {
+                PluginLog.Information($"RaptureAtkModule: {(IntPtr)(FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule()):X16}");
+            }
+            catch(Exception e)
+            {
+                PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
+            }
         }
 
         void BeginWork()

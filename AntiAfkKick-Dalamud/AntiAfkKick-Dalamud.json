@@ -2,5 +2,8 @@
   "Name": "AntiAfkKick",
   "Author": "Eternita",
   "Description": "A Dalamud plugin for preventing being auto-kicked from FFXIV due to inactivity. Install and forget, no config needed.",
-  "RepoUrl": "https://github.com/Eternita-S/AntiAfkKick"
+  "RepoUrl": "https://github.com/Eternita-S/AntiAfkKick",
+  "DalamudApiLevel": 7,
+  "AssemblyVersion": "9.0.0.0",
+  "InternalName": "AntiAfkKick-Dalamud"
 }
