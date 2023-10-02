@@ -18,35 +18,34 @@ using Dalamud.Game.Network;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.IoC;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 
 namespace AntiAfkKick
 {
 	class Svc
 	{
 		[PluginService] static internal DalamudPluginInterface PluginInterface { get; private set; }
-		[PluginService] static internal BuddyList Buddies { get; private set; }
-		[PluginService] static internal ChatGui Chat { get; private set; }
-		[PluginService] static internal ChatHandlers ChatHandlers { get; private set; }
-		[PluginService] static internal ClientState ClientState { get; private set; }
-		[PluginService] static internal CommandManager Commands { get; private set; }
-		[PluginService] static internal Condition Condition { get; private set; }
-		[PluginService] static internal DataManager Data { get; private set; }
-		[PluginService] static internal FateTable Fates { get; private set; }
-		[PluginService] static internal FlyTextGui FlyText { get; private set; }
-		[PluginService] static internal Framework Framework { get; private set; }
-		[PluginService] static internal GameGui GameGui { get; private set; }
-		[PluginService] static internal GameNetwork GameNetwork { get; private set; }
-		[PluginService] static internal JobGauges Gauges { get; private set; }
-		[PluginService] static internal KeyState KeyState { get; private set; }
-		[PluginService] static internal LibcFunction LibcFunction { get; private set; }
-		[PluginService] static internal ObjectTable Objects { get; private set; }
-		[PluginService] static internal PartyFinderGui PfGui { get; private set; }
-		[PluginService] static internal PartyList Party { get; private set; }
-#pragma warning disable CS0618 // Type or member is obsolete
-		[PluginService] static internal SeStringManager SeStringManager { get; private set; }
-#pragma warning restore CS0618 // Type or member is obsolete
-		[PluginService] static internal SigScanner SigScanner { get; private set; }
-		[PluginService] static internal TargetManager Targets { get; private set; }
-		[PluginService] static internal ToastGui Toasts { get; private set; }
-	}
+		[PluginService] static internal IBuddyList Buddies { get; private set; }
+		[PluginService] static internal IChatGui Chat { get; private set; }
+		[PluginService] static internal IClientState ClientState { get; private set; }
+		[PluginService] static internal ICommandManager Commands { get; private set; }
+		[PluginService] static internal ICondition Condition { get; private set; }
+		[PluginService] static internal IDataManager Data { get; private set; }
+		[PluginService] static internal IFateTable Fates { get; private set; }
+		[PluginService] static internal IFlyTextGui FlyText { get; private set; }
+		[PluginService] static internal IFramework Framework { get; private set; }
+		[PluginService] static internal IGameGui GameGui { get; private set; }
+		[PluginService] static internal IGameNetwork GameNetwork { get; private set; }
+		[PluginService] static internal IJobGauges Gauges { get; private set; }
+		[PluginService] static internal IKeyState KeyState { get; private set; }
+		[PluginService] static internal ILibcFunction LibcFunction { get; private set; }
+		[PluginService] static internal IObjectTable Objects { get; private set; }
+		[PluginService] static internal IPartyFinderGui PfGui { get; private set; }
+		[PluginService] static internal IPartyList Party { get; private set; }
+		[PluginService] static internal ISigScanner SigScanner { get; private set; }
+		[PluginService] static internal ITargetManager Targets { get; private set; }
+        [PluginService] static internal IToastGui Toasts { get; private set; }
+        [PluginService] static internal IGameInteropProvider Hook { get; private set; }
+        [PluginService] static internal IPluginLog Log { get; private set; }
+    }
 }

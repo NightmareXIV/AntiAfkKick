@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Authors>Eternita</Authors>
+		<Authors>NightmareXIV</Authors>
 		<Version>2.1.0.3</Version>
 	</PropertyGroup>
 
@@ -34,7 +34,10 @@
 			mkdir .\Release
 			move ..\$(MSBuildProjectName)-$(Version).zip .\release\$(MSBuildProjectName).zip
 		</PostBuildEvent>
-	</PropertyGroup>	
+	</PropertyGroup>
+		<ItemGroup>
+		  <PackageReference Include="DalamudPackager" Version="2.1.12" />
+		</ItemGroup>	
 	
 
 	<ItemGroup>

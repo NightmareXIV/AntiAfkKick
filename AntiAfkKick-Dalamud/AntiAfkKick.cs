@@ -44,15 +44,15 @@ namespace AntiAfkKick_Dalamud
         public AntiAfkKick(DalamudPluginInterface pluginInterface)
         {
             pluginInterface.Create<Svc>();
-            UnkFuncHook = new(Svc.SigScanner.ScanText("48 8B C4 48 89 58 18 48 89 70 20 55 57 41 55"), UnkFunc_Dtr);
+            UnkFuncHook = Svc.Hook.HookFromAddress<UnkFunc>(Svc.SigScanner.ScanText("48 8B C4 48 89 58 18 48 89 70 20 55 57 41 55"), UnkFunc_Dtr);
             UnkFuncHook.Enable();
             try
             {
-                PluginLog.Information($"RaptureAtkModule: {(IntPtr)(FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule()):X16}");
+                Svc.Log.Information($"RaptureAtkModule: {(IntPtr)(FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule()):X16}");
             }
             catch(Exception e)
             {
-                PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
+                Svc.Log.Error(e.Message + "\n" + e.StackTrace ?? "");
             }
         }
 
@@ -67,43 +67,43 @@ namespace AntiAfkKick_Dalamud
                 {
                     try
                     {
-                        PluginLog.Debug($"Afk timers: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
+                        Svc.Log.Verbose($"Afk timers: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
                         if (Max(*AfkTimer, *AfkTimer2, *AfkTimer3) > 2f * 60f)
                         {
                             if (Native.TryFindGameWindow(out var mwh))
                             {
-                                PluginLog.Debug($"Afk timer before: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
-                                PluginLog.Debug($"Sending anti-afk keypress: {mwh:X16}");
+                                Svc.Log.Verbose($"Afk timer before: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
+                                Svc.Log.Verbose($"Sending anti-afk keypress: {mwh:X16}");
                                 new TickScheduler(delegate
                                 {
                                     SendMessage(mwh, WM_KEYDOWN, (IntPtr)LControlKey, (IntPtr)0);
                                     new TickScheduler(delegate
                                     {
                                         SendMessage(mwh, WM_KEYUP, (IntPtr)LControlKey, (IntPtr)0);
-                                        PluginLog.Debug($"Afk timer after: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
+                                        Svc.Log.Verbose($"Afk timer after: {*AfkTimer}/{*AfkTimer2}/{*AfkTimer3}");
                                     }, Svc.Framework, 200);
                                 }, Svc.Framework, 0);
                             }
                             else
                             {
-                                PluginLog.Error("Could not find game window");
+                                Svc.Log.Error("Could not find game window");
                             }
                         }
                         Thread.Sleep(10000);
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
+                        Svc.Log.Error(e.Message + "\n" + e.StackTrace ?? "");
                     }
                 }
-                PluginLog.Debug("Thread has stopped");
+                Svc.Log.Debug("Thread has stopped");
             }).Start();
         }
 
         long UnkFunc_Dtr(IntPtr a1, float a2)
         {
             BaseAddress = a1;
-            PluginLog.Information($"Obtained base address: {BaseAddress:X16}");
+            Svc.Log.Information($"Obtained base address: {BaseAddress:X16}");
             new TickScheduler(delegate 
             {
                 if (!UnkFuncHook.IsDisposed)
@@ -113,7 +113,7 @@ namespace AntiAfkKick_Dalamud
                         UnkFuncHook.Disable();
                     }
                     UnkFuncHook.Dispose();
-                    PluginLog.Debug("Hook disposed");
+                    Svc.Log.Debug("Hook disposed");
                 }
                 BeginWork();
             }, Svc.Framework);
