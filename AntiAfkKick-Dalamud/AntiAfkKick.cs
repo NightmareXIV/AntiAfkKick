@@ -44,7 +44,7 @@ namespace AntiAfkKick_Dalamud
         public AntiAfkKick(DalamudPluginInterface pluginInterface)
         {
             pluginInterface.Create<Svc>();
-            UnkFuncHook = Svc.Hook.HookFromAddress<UnkFunc>(Svc.SigScanner.ScanText("48 8B C4 48 89 58 18 48 89 70 20 55 57 41 55"), UnkFunc_Dtr);
+            UnkFuncHook = Svc.Hook.HookFromAddress<UnkFunc>(Svc.SigScanner.ScanText("48 8B C4 48 89 58 18 48 89 70 20 55 57 41 54 41 56 41 57 48 8D 68 A1"), UnkFunc_Dtr);
             UnkFuncHook.Enable();
             try
             {

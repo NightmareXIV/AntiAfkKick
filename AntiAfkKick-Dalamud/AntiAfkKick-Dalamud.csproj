@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>NightmareXIV</Authors>
-		<Version>2.1.0.3</Version>
+		<Version>2.1.0.5</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -24,16 +24,6 @@
 
 	<PropertyGroup>
 		<DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
-	</PropertyGroup>
-		<PropertyGroup>
-		<PostBuildEvent>
-			rmdir .\Release /s /q
-			ping localhost -n 2 &gt;nul
-			powershell "(Get-Content .\$(MSBuildProjectName).json) -Replace '9.0.0.0', '$(Version)' | Set-Content .\$(MSBuildProjectName).json"
-			powershell Compress-Archive .\* ..\$(MSBuildProjectName)-$(Version).zip
-			mkdir .\Release
-			move ..\$(MSBuildProjectName)-$(Version).zip .\release\$(MSBuildProjectName).zip
-		</PostBuildEvent>
 	</PropertyGroup>
 		<ItemGroup>
 		  <PackageReference Include="DalamudPackager" Version="2.1.12" />
@@ -61,10 +51,14 @@
 			<HintPath>$(DalamudLibPath)Lumina.Excel.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="FFXIVClientStructs">
-			<HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+      <Reference Include="FFXIVClientStructs">
+          <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
+      <Reference Include="Serilog">
+          <HintPath>$(DalamudLibPath)Serilog.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
