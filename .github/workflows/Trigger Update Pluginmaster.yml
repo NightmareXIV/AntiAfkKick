@@ -4,10 +4,6 @@ on:
   release:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
-
 jobs:
   TriggerUpdatePluginmaster:
     uses:
