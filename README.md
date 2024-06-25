@@ -12,14 +12,14 @@ Recommended if you are using FFXIV Quick Launcher. Using AntiAfkKick as Dalamud 
 
 Add my custom repo URL: 
 
-`https://raw.githubusercontent.com/Eternita-S/MyDalamudPlugins/main/pluginmaster.json` 
+`https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json` 
 
 then install plugin from plugins list.
 
-Detailed instruction available here: https://github.com/Eternita-S/MyDalamudPlugins
+Detailed instruction available here: https://github.com/NightmareXIV/MyDalamudPlugins
 
 ## ACT plugin
-Download it here: https://github.com/Eternita-S/AntiAfkKick/releases
+Download it here: https://github.com/NightmareXIV/AntiAfkKick/releases
 
 Then copy it to any convenient folder. Open up ACT, go to "Plugins" tab, then to "Plugin Listing", then click "Browse" button and select DLL file you have just downloaded, and finally click "Add/Enable plugin". Upon doing so ACT may ask you to unblock file. In this case press "Yes".
 
@@ -27,7 +27,7 @@ Then copy it to any convenient folder. Open up ACT, go to "Plugins" tab, then to
 ## Standalone version
 Just download it and run it. No configuration needed. To exit, access program's tray icon.
 
-Download link: https://github.com/Eternita-S/AntiAfkKick/releases
+Download link: https://github.com/NightmareXIV/AntiAfkKick/releases
 
 ## How it works?
 It just sends left control key to the game every now and then. Seems like for now it's enough to make game think user is still active. It won't send keypress if you are actually playing.
