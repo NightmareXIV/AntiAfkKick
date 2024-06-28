@@ -1,0 +1,11 @@
+name: Trigger Readme Rebuild
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  TriggerReadmeRebuild:
+    uses:
+      NightmareXIV/MyDalamudPlugins/.github/workflows/Create_readme_full.yml@main
+    secrets: inherit
