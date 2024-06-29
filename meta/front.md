@@ -1,6 +1,6 @@
 # AntiAfkKick
 
-|Until Dalamud framework is available again, please use standalone version. [Click here to download](https://github.com/NightmareXIV/AntiAfkKick/releases/download/2.1.0.4/AntiAfkKick-Standalone.exe).|
+|Until Dalamud framework is available again, please use standalone version. [Click here to download](https://github.com/NightmareXIV/AntiAfkKick/releases/download/2.1.0.4/AntiAfkKick-Standalone.exe). If you are experiencing issues with it, try running it as administrator.|
 |---|
 
 |Attention! Standalone version sometimes may have an issue if you're using a controller and afk without alt-tabbing out of the game. If you experience this issue, alt-tab before going AFK.|
