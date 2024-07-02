@@ -40,7 +40,7 @@ namespace AntiAfkKick
                     Visible = true,
                     ContextMenu = new ContextMenu(new MenuItem[] {
                         new MenuItem("AntiAfkKick standalone") { Enabled = false },
-                        new MenuItem("-"),
+                        new Sepa("-"),
                         new MenuItem("Invoke manually", delegate 
                         {
                             var str = new List<string>();
@@ -55,7 +55,8 @@ namespace AntiAfkKick
                             }
                             MessageBox.Show(string.Join("\n", str), "AntiAfkKick standalone");
                         }),
-                        new MenuItem("Report issue", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://github.com/Eternita-S/AntiAfkKick/issues" }); }),
+                        new MenuItem("Report issue", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://discord.nightmarexiv.com/" }); }),
+                        new MenuItem("Donate", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://subscribe.nightmarexiv.com/" }); }),
                         new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); })
                     }),
                     Text = "AntiAfkKick"
