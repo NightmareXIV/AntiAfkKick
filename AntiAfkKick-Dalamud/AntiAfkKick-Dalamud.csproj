@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>NightmareXIV</Authors>
-		<Version>2.1.0.5</Version>
+		<Version>2.1.0.6</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -26,7 +26,7 @@
 		<DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
 	</PropertyGroup>
 		<ItemGroup>
-		  <PackageReference Include="DalamudPackager" Version="2.1.12" />
+		  <PackageReference Include="DalamudPackager" Version="2.1.13" />
 		</ItemGroup>	
 	
 
