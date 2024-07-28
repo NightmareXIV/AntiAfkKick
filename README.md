@@ -8,7 +8,7 @@ If you like AntiAfkKick, please consider becoming a supporter on Patreon or via 
 ### Also:
 - [Explore other plugins I maintain or contributed to](https://explore.nightmarexiv.com/)
 - [Join NightmareXIV Discord server to receive fast support and pings about plugin updates](https://discord.gg/m8NRt4X8Gf)
-# Description
+## Description
 
 |Attention! Standalone version sometimes may have an issue if you're using a controller and afk without alt-tabbing out of the game. If you experience this issue, alt-tab before going AFK.|
 |---|
