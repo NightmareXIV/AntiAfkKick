@@ -1,4 +1,4 @@
-# Description
+## Description
 
 |Attention! Standalone version sometimes may have an issue if you're using a controller and afk without alt-tabbing out of the game. If you experience this issue, alt-tab before going AFK.|
 |---|
