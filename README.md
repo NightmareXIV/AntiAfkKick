@@ -1,7 +1,7 @@
 ﻿# AntiAfkKick
 An application, Dalamud and ACT plugin for preventing being auto-kicked from FFXIV due to inactivity.
 ## Become a Supporter!
-If you like AntiAfkKick, please consider becoming a supporter on Patreon or via other means! This will help me to continue updating the plugin and implement new features and you will receive benefits such as priority support, prioritized feature request, early testing builds and private plugins as well - number of which will only grow with Dawntrail. 
+If you like AntiAfkKick, please consider becoming a supporter on Patreon or via other means! This will help me to continue updating AntiAfkKick and work on new plugins and features and you will receive benefits such as early progress updates, priority support, prioritized feature requests, early testing builds and private tools. 
 - [Subscribe on Patreon](https://subscribe.nightmarexiv.com/) - eligible for Discord role
 - [Donate Litecoin, Bitcoin, Tether or other crypto](https://crypto.nightmarexiv.com/) - eligible for Discord role
 
