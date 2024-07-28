@@ -1,14 +1,11 @@
-# AntiAfkKick
-
-|Until Dalamud framework is available again, please use standalone version. [Click here to download](https://github.com/NightmareXIV/AntiAfkKick/releases/download/2.1.0.4/AntiAfkKick-Standalone.exe). If you are experiencing issues with it, try running it as administrator.|
-|---|
+# Description
 
 |Attention! Standalone version sometimes may have an issue if you're using a controller and afk without alt-tabbing out of the game. If you experience this issue, alt-tab before going AFK.|
 |---|
 
 An application, Dalamud and ACT plugin for preventing being auto-kicked from FFXIV due to inactivity.
 
-**Please use responsibly, this is meant to be used for gatherers or if you are waiting for raid/pf/event, not to just afk in limsa dancing**
+**Please use responsibly, this is meant to be used for gatherers or if you are waiting for raid/pf/event, not to just afk**
 
 ## Dalamud plugin
 Recommended if you are using FFXIV Quick Launcher. Using AntiAfkKick as Dalamud plugin provides advantages of automatically launching together with game and automatic updates. ACT plugin and standalone version must be updated manually if ever needed.
@@ -31,6 +28,3 @@ Then copy it to any convenient folder. Open up ACT, go to "Plugins" tab, then to
 Just download it and run it. No configuration needed. To exit, access program's tray icon.
 
 Download link: https://github.com/NightmareXIV/AntiAfkKick/releases/download/2.1.0.4/AntiAfkKick-Standalone.exe
-
-## How it works?
-It just sends left control key to the game every now and then. Seems like for now it's enough to make game think user is still active. It won't send keypress if you are actually playing.
