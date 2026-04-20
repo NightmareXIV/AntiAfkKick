@@ -2,12 +2,13 @@
 An application, Dalamud and ACT plugin for preventing being auto-kicked from FFXIV due to inactivity.
 ## Become a Supporter!
 If you like AntiAfkKick, please consider becoming a supporter on Patreon or via other means! This will help me to continue updating AntiAfkKick and work on new plugins and features and you will receive benefits such as early progress updates, priority support, prioritized feature requests, early testing builds and private tools. 
-- [Subscribe on Patreon](https://subscribe.nightmarexiv.com/) - eligible for Discord role
-- [Donate Litecoin, Bitcoin, Tether or other crypto](https://crypto.nightmarexiv.com/) - eligible for Discord role
+- [Subscribe on Patreon (Starts from $1)](https://subscribe.nightmarexiv.org/) - eligible for Discord role
+- [Donate Litecoin, Bitcoin, Tether or other crypto](https://crypto.nightmarexiv.org/) - eligible for Discord role
+- [One-time donation on Ko-Fi](https://donate.nightmarexiv.org/)
 
 ### Also:
-- [Explore other plugins I maintain or contributed to](https://explore.nightmarexiv.com/)
-- [Join NightmareXIV Discord server to receive fast support and pings about plugin updates](https://discord.gg/m8NRt4X8Gf)
+- [Explore other plugins I maintain or contributed to](https://explore.nightmarexiv.org/)
+- [Join NightmareXIV Discord server to receive fast support and pings about plugin updates](https://discord.gg/BeeRFKDJD3)
 ## Description
 
 |Attention! Standalone version sometimes may have an issue if you're using a controller and afk without alt-tabbing out of the game. If you experience this issue, alt-tab before going AFK.|
@@ -39,4 +40,9 @@ Just download it and run it. No configuration needed. To exit, access program's 
 
 Download link: https://github.com/NightmareXIV/AntiAfkKick/releases/download/2.1.0.4/AntiAfkKick-Standalone.exe
 ## This plugin is feature complete
-This means that everything that was planned for this plugin is implemented and there are no plans to add any more functions. The plugin is still being maintained and updated and bugs are being fixed, but no new feature requests are accepted. New features can still be implemented either via direct commission request or through patron votes.
+- This plugin has all major features implemented and there are no plans to add new ones;
+- Existing features are still open for improvement;
+- Any bugs will be fixed and plugin will be updated and maintained;
+- New features can still be implemented via direct commission request or through patron votes during feature campaigns.
+
+This state is not permanent and can be changed in future. Feel free to still leave your feature request!
