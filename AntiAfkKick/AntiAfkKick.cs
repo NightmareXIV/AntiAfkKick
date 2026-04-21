@@ -55,8 +55,8 @@ namespace AntiAfkKick
                             }
                             MessageBox.Show(string.Join("\n", str), "AntiAfkKick standalone");
                         }),
-                        new MenuItem("Report issue", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://discord.nightmarexiv.com/" }); }),
-                        new MenuItem("Donate", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://subscribe.nightmarexiv.com/" }); }),
+                        new MenuItem("Report issue", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://discord.nightmarexiv.org/" }); }),
+                        new MenuItem("Donate", delegate { Process.Start(new ProcessStartInfo() { UseShellExecute=true, FileName="https://subscribe.nightmarexiv.org/" }); }),
                         new MenuItem("Exit", delegate { n.Dispose(); Environment.Exit(0); })
                     }),
                     Text = "AntiAfkKick"
